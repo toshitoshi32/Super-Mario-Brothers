@@ -429,9 +429,8 @@ class Level1(tools._State):
     def check_points_check(self):
         """Detect if checkpoint collision occurs, delete checkpoint,
         add enemies to self.enemy_group"""
-        checkpoint = pg.sprite.spritecollideany(self.mario,
-                                                 self.check_point_group)
-        if checkpoint:
+        if checkpoint := pg.sprite.spritecollideany(self.mario,
+                                                 self.check_point_group):
             checkpoint.kill()
 
             for i in range(1,11):
@@ -808,9 +807,8 @@ class Level1(tools._State):
         """Kills enemy if on a bumped or broken brick"""
         brick.rect.y -= 5
 
-        enemy = pg.sprite.spritecollideany(brick, self.enemy_group)
 
-        if enemy:
+        if enemy := pg.sprite.spritecollideany(brick, self.enemy_group):
             setup.SFX['kick'].play()
             self.game_info[c.SCORE] += 100
             self.moving_score_list.append(
@@ -1068,9 +1066,8 @@ class Level1(tools._State):
 
     def check_shell_y_collisions(self, shell):
         """Shell collisions along the y axis"""
-        collider = pg.sprite.spritecollideany(shell, self.ground_step_pipe_group)
 
-        if collider:
+        if collider := pg.sprite.spritecollideany(shell, self.ground_step_pipe_group):
             shell.y_vel = 0
             shell.rect.bottom = collider.rect.top
             shell.state = c.SHELL_SLIDE
@@ -1229,9 +1226,8 @@ class Level1(tools._State):
                                         self.coin_box_group,
                                         self.brick_group)
 
-        collider = pg.sprite.spritecollideany(fireball, collide_group)
 
-        if collider:
+        if collider := pg.sprite.spritecollideany(fireball, collide_group):
             fireball.kill()
             self.sprites_about_to_die_group.add(fireball)
             fireball.explode_transition()
